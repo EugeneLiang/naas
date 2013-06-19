@@ -1,0 +1,26 @@
+extends ../layouts/default
+
+block content
+  - var action = user.isNew ? '/users' : '/users/' + user._id
+
+  form.form-horizontal(method="post", action=action, name="form")
+
+    - if (!user.isNew)
+      input(type="hidden", name="_method", value="PUT")
+
+    .row
+      .span6
+        .control-group
+          label.control-label(for="name") Name
+          .controls
+            input(type="text", id="name", name="name", value=user.name, required)
+
+        .control-group
+          label.control-label(for="email") Email
+          .controls
+            input(type="email", id="email", name="email", value=user.email, required)
+
+    .form-actions
+      button.btn.btn-success.btn-large(type="submit") Save
+      &nbsp;&nbsp;&nbsp;
+      a.cancel(href="/users") Cancel

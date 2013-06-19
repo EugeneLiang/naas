@@ -1,0 +1,16 @@
+extends ../layouts/default
+
+block main
+  h2= title
+
+block content
+  form.form-signin(action="/users", method="post")
+    h3.form-signin-heading Sign up
+
+    input.input-block-level(type="text", placeholder="Full name", name="name", required)
+
+    input.input-block-level(type="email", placeholder="Email address", name="email", value=user.email, required)
+
+    input.input-block-level(type="password", placeholder="Password", name="password", required)
+
+    button.btn.btn-success(type="submit") Sign up

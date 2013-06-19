@@ -1,0 +1,30 @@
+extends ../layouts/default
+
+block main
+  h2= title
+
+block content
+  - var action = app.isNew ? '/apps' : '/apps/' + app._id
+
+  form.form-horizontal(method="post", action=action, name="form")
+
+    - if (!app.isNew)
+      input(type="hidden", name="_method", value="PUT")
+
+    .row
+      .span6
+        .control-group
+          label.control-label(for="name") Name
+          .controls
+            input(type="text", id="name", name="name", value=app.name, required)
+
+        .control-group
+          label.control-label(for="description") Description
+          .controls
+            textarea(name="description", id="description")= app.description
+
+    .form-actions
+      button.btn.btn-success.btn-large(type="submit") Save
+      &nbsp;&nbsp;&nbsp;
+      a.cancel(href="/users") Cancel
+

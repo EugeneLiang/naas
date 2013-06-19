@@ -6,6 +6,8 @@
 var express = require('express')
   , mongoStore = require('connect-mongo')(express)
   , helpers = require('view-helpers')
+  , pkg = require('../package')
+  , flash = require('connect-flash')
 
 module.exports = function (app, config, passport) {
   app.set('showStackError', true)
@@ -36,6 +38,12 @@ module.exports = function (app, config, passport) {
       app.use(passport.initialize())
       app.use(passport.session())
     }
+
+    // Flash messages
+    app.use(flash())
+
+    // View helpers
+    app.use(helpers(pkg.name, app))
 
     // routes should be at the last
     app.use(app.router)

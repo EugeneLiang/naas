@@ -1,2 +1,10 @@
 header#header
-  h1.logo= appName
+  h1.logo
+    a(href="/")= appName
+
+  - if (req.isAuthenticated())
+    a(href="/logout", title="logout") logout
+    &nbsp;
+    a(href="/apps/new", title="new app") new app
+  - else
+    a(href="/login", title="login") login

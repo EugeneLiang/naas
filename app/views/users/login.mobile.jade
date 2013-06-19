@@ -1,10 +1,6 @@
-extends ../layouts/default
-
-block main
-  h2= title
+extends ../layouts/mobile
 
 block content
-  br
   form.form-signin(action="/session", method="post")
     h3.form-signin-heading Please sign in
     p.error= message

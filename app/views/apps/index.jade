@@ -1,0 +1,44 @@
+extends ../layouts/default
+
+block main
+  h2= title
+
+block content
+  - if (apps.length)
+    table.table.table-hover
+      thead
+        tr
+          th
+          th Name
+          th Owner
+          th(colspan="3") Date
+        tbody
+          each app, i in apps
+            tr
+              td= 10 * page + (i + 1)
+              td
+                a(href="/apps/" + app.id) #{app.name}
+              td
+                - if (app.owner)
+                  a(href="/users/" + app.owner._id)= app.owner.name
+              td.date= formatDate(app.createdAt)
+              td
+                a(href="/apps/" + app.id + "/edit")
+                  i.icon-pencil
+                  |  edit
+              td
+                form(action="/apps/" + app._id, method="post", onsubmit="return confirm('Are you sure?')")
+                  button.btn.btn-link.danger(type="submit", title="delete #{app.name}")
+                    i.icon-trash
+                    |  delete
+                  input(type="hidden", name="_method", value="DELETE")
+
+    if (pages > 1)
+      .pagination
+        ul
+          != createPagination(pages, page + 1, req.url)
+  else
+    br
+    center
+      h3.muted You don't have any apps yet
+      a.btn.btn-large.btn-success(href="/apps/new") Create

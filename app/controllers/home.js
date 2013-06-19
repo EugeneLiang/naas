@@ -4,5 +4,9 @@
  */
 
 exports.index = function (req, res) {
-  res.render('home/index', {title: 'index'})
+  if (req.isAuthenticated()) {
+    res.redirect('/apps')
+  } else {
+    res.render('home')
+  }
 }
