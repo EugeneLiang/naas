@@ -5,7 +5,7 @@
 
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
-var userPlugin = require('../../../mongoose-user')
+var userPlugin = require('mongoose-user')
 
 /**
  * User schema
