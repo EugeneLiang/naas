@@ -7,6 +7,8 @@ exports.index = function (req, res) {
   if (req.isAuthenticated()) {
     require('./apps').index(req, res)
   } else {
-    res.render('home')
+    res.render('home', {
+      title: 'Notifications as service'
+    })
   }
 }

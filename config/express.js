@@ -60,7 +60,12 @@ module.exports = function (app, config, passport) {
 
     // custom error handler
     app.use(function (err, req, res, next) {
-      if (~err.message.indexOf('not found')) return next()
+      if (err.message
+        && (~err.message.indexOf('not found')
+        || (~err.message.indexOf('Cast to ObjectId failed')))) {
+        return next()
+      }
+
       console.error(err.stack)
       res.status(500).render('500')
     })
