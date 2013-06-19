@@ -43,7 +43,7 @@ AppSchema.methods = {
 AppSchema.statics = {
 
   /**
-   * Find survey by id
+   * Load
    *
    * @param {Object} options
    * @param {Function} cb
@@ -55,7 +55,7 @@ AppSchema.statics = {
     var select = options.select || 'name description user createdAt'
     var populate = [{ path: 'user', select: 'name' }].concat(options.populate || [])
 
-    // don't list the deleted surveys
+    // don't list the deleted
     criteria.deleted = false
 
     this.findOne(criteria)
@@ -80,7 +80,7 @@ AppSchema.statics = {
     var select = options.select || 'name description user createdAt'
     var populate = [{ path: 'user', select: 'name' }].concat(options.populate || [])
 
-    // don't list the deleted surveys
+    // don't list the deleted apps
     criteria.deleted = false
 
     this.find(criteria)
