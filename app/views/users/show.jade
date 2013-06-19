@@ -1,32 +1,16 @@
 extends ../layouts/default
 
-block heading
+block main
   h2= title
 
 block content
   .row
     .span2
-      img.img-rounded(src=user.avatar, tooltip="change your avatar at gravatar.com")
-    .span6
+      img.img-circle(src=user.avatar, tooltip="change your avatar at gravatar.com")
+    .span4
       p
         i.icon-envelope-alt
         |  #{user.email}
 
       - if (req.user._id == user.id)
         a.btn(href="/users/"+user._id+"/edit") Edit
-
-    - if (req.user._id == user.id)
-      .span4
-        ul.nav.nav-tabs.nav-stacked
-          li
-            a(href="/users/change-password")
-              i.icon-chevron-right
-              |  Change password
-
-          li
-            a(href="/users/preferences")
-              i.icon-chevron-right
-              |  Preferences
-
-  br
-  br

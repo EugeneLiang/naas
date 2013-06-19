@@ -2,14 +2,13 @@ doctype 5
 html
   include ../includes/head
   body
-    .wrapper
-      include ../includes/header
-      .container
-        .main-content
-          .page-header
-            block main
-          include ../includes/messages
-          block content
-      .push
+    include ../includes/header
+    .container
+      .page-header
+        block main
+      .messages
+        include ../includes/messages
+      .content
+        block content
     include ../includes/footer
     include ../includes/foot

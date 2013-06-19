@@ -5,7 +5,7 @@
 
 exports.index = function (req, res) {
   if (req.isAuthenticated()) {
-    res.redirect('/apps')
+    require('./apps').index(req, res)
   } else {
     res.render('home')
   }

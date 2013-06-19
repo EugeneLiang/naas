@@ -1,5 +1,8 @@
 extends ../layouts/default
 
+block main
+ h2= title
+
 block content
   - var action = user.isNew ? '/users' : '/users/' + user._id
 
@@ -21,6 +24,6 @@ block content
             input(type="email", id="email", name="email", value=user.email, required)
 
     .form-actions
-      button.btn.btn-success.btn-large(type="submit") Save
+      button.btn.btn-primary.btn-large(type="submit") Save
       &nbsp;&nbsp;&nbsp;
-      a.cancel(href="/users") Cancel
+      a.cancel(href="/users/" + user._id) Cancel

@@ -19,8 +19,8 @@ block content
               td
                 a(href="/apps/" + app.id) #{app.name}
               td
-                - if (app.owner)
-                  a(href="/users/" + app.owner._id)= app.owner.name
+                - if (app.user)
+                  a(href="/users/" + app.user._id)= app.user.name
               td.date= formatDate(app.createdAt)
               td
                 a(href="/apps/" + app.id + "/edit")
@@ -33,11 +33,11 @@ block content
                     |  delete
                   input(type="hidden", name="_method", value="DELETE")
 
-    if (pages > 1)
+    - if (pages > 1)
       .pagination
         ul
           != createPagination(pages, page + 1, req.url)
-  else
+  - else
     br
     center
       h3.muted You don't have any apps yet

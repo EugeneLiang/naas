@@ -1,10 +1,24 @@
 header#header
-  h1.logo
-    a(href="/")= appName
+  .navbar.navbar-fixed-top(role='navigation')
+    .navbar-inner
+      .container
+        a.brand(href='/')= pkg.name
+        .nav-collapse.collapse
+          ul.nav.pull-right
+            - if (req.isAuthenticated())
+              li
+                a(href="/apps/new", title="new app") New
+              li
+                a(href="/apps", title="Apps") Apps
+              li
+                a(href="/users/" + req.user._id, title="Profile") Profile
+              li
+                a(href="/logout", title="logout") Logout
+            - else
+              li
+                a(href="/login", title="Login") Login
 
-  - if (req.isAuthenticated())
-    a(href="/logout", title="logout") logout
-    &nbsp;
-    a(href="/apps/new", title="new app") new app
-  - else
-    a(href="/login", title="login") login
+  a(href="https://github.com/changer/nas")
+    img(style="position: fixed; top: 0; right: 0; border: 0; z-index: 9999",
+      src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png",
+      alt="Fork me on GitHub")

@@ -1,8 +1,5 @@
 extends ../layouts/default
 
-block main
-  h2= title
-
 block content
   form.form-signin(action="/users", method="post")
     h3.form-signin-heading Sign up
@@ -13,4 +10,4 @@ block content
 
     input.input-block-level(type="password", placeholder="Password", name="password", required)
 
-    button.btn.btn-success(type="submit") Sign up
+    button.btn.btn-primary(type="submit") Sign up

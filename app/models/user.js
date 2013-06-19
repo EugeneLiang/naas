@@ -45,6 +45,16 @@ UserSchema.path('email').validate(function (email, fn) {
 }, 'Email already exists')
 
 /**
+ * Virtuals
+ */
+
+UserSchema.virtual('avatar')
+.get(function () {
+  var gravatar = require('gravatar')
+  return gravatar.url(this.email, { s: 140, d: 'mm' })
+})
+
+/**
  * Register UserSchema
  */
 

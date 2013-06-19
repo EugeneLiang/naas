@@ -1,5 +1,6 @@
 {
-  "name": "Naas",
+  "name": "nas",
+  "description": "A notification service",
   "version": "0.0.1",
   "engines": {
     "node": "0.10.x",
@@ -20,11 +21,21 @@
     "view-helpers": "latest",
     "passport": "latest",
     "passport-local": "latest",
-    "mongoose-user": "latest"
+    "mongoose-user": "latest",
+    "gravatar": "latest"
   },
   "devDependencies": {
     "nodemon": "latest",
     "mocha": "latest",
     "should": "latest"
-  }
+  },
+  "keywords": [
+    "nas",
+    "notifications",
+    "emails",
+    "sms",
+    "push notifications",
+    "apn",
+    "service"
+  ]
 }

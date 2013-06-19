@@ -1,8 +1,5 @@
 extends ../layouts/default
 
-block main
-  h2= title
-
 block content
   br
   form.form-signin(action="/session", method="post")
@@ -13,7 +10,7 @@ block content
     label.checkbox
       input(name="rememberme", type="checkbox", checked)
       | Remember me
-    button.btn.btn-success(type="submit") Sign in
+    button.btn.btn-primary(type="submit") Sign in
     &nbsp;
     &nbsp;
     a(href="/users/forgot-password") forgot password?
