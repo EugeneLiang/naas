@@ -55,7 +55,7 @@ exports.auth = function (req, res) {
 
   var options = {
     criteria: { email: req.body.email, key: req.body.key },
-    select: 'token'
+    select: 'authToken'
   }
 
   User.load(options, function (err, user) {

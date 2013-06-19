@@ -38,7 +38,7 @@ UserSchema.pre('save', function (next) {
     user.resetToken('key', function () {
       user.resetToken('authToken', next)
     })
-  }
+  } else next()
 })
 
 /**
