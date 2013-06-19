@@ -9,3 +9,11 @@ exports.requiresLogin = function (req, res, next) {
   else
     return res.redirect('/')
 }
+
+/**
+ * Check headers
+ */
+
+exports.checkHeaders = function (req, res, next) {
+  next()
+}

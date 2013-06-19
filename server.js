@@ -4,17 +4,19 @@
  */
 
 var express = require('express')
-  , passport = require('passport')
-  , env = process.env.NODE_ENV || 'development'
-  , config = require('./config/config')[env]
-  , mongoose = require('mongoose')
-  , modelsPath = __dirname + '/app/models'
+var passport = require('passport')
+var env = process.env.NODE_ENV || 'development'
+var config = require('./config/config')[env]
+var mongoose = require('mongoose')
+var fs = require('fs')
+
+require('express-namespace')
 
 mongoose.connect(config.db)
 
 // Bootstrap models
-require('fs').readdirSync(modelsPath).forEach(function (file) {
-  require(modelsPath+'/'+file)
+fs.readdirSync(__dirname + '/app/models').forEach(function (file) {
+  require(__dirname + '/app/models/' + file)
 })
 
 // Bootstrap passport config

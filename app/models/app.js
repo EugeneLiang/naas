@@ -20,6 +20,21 @@ var AppSchema = new Schema({
 })
 
 /**
+ * Pre-save hook
+ */
+
+AppSchema.pre('save', function (next) {
+  if (this.isNew) {
+    var self = this
+    // generate key
+    require('crypto').randomBytes(48, function(ex, buf) {
+      self.key = buf.toString('hex')
+      next()
+    })
+  }
+})
+
+/**
  * Validations
  */
 
@@ -52,7 +67,7 @@ AppSchema.statics = {
 
   load: function (options, cb) {
     var criteria = options.criteria || {}
-    var select = options.select || 'name description user createdAt'
+    var select = options.select || 'name description key user createdAt'
     var populate = [{ path: 'user', select: 'name' }].concat(options.populate || [])
 
     // don't list the deleted

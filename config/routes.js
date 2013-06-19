@@ -100,10 +100,22 @@ module.exports = function (app, passport) {
    * --------------------------------------------------------------
    */
 
-  /*
-  app.namespace('/api/1', middlewares.checkHeaders, api1)
-  app.namespace('/api/v1', api1)
-  app.namespace('/api', api1)
-  */
 
+  app.namespace('/api/1', middlewares.checkHeaders, api1)
+
+  function api1 () {
+    var api = require('../app/api/1')
+
+    /**
+     * API docs
+     */
+
+    app.get('/docs', [rl], api.docs)
+
+    /**
+     * Users API
+     */
+
+    app.post('/auth', api.auth)
+  }
 }

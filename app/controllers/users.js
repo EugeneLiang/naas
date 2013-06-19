@@ -57,7 +57,7 @@ exports.create = function (req, res) {
   user.save(function (err) {
     if (!err) {
       return req.logIn(user, function () {
-        req.flash('success', 'Welcome ' + user.name + '. You have signed up to NAAS!')
+        req.flash('success', 'Welcome ' + user.name + '. You just signed up!')
         res.redirect('/')
       })
     }

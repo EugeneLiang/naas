@@ -8,9 +8,11 @@ block content
     .span2
       img.img-circle(src=user.avatar, tooltip="change your avatar at gravatar.com")
     .span4
-      p
-        i.icon-envelope-alt
-        |  #{user.email}
-
       - if (req.user._id == user.id)
-        a.btn(href="/users/"+user._id+"/edit") Edit
+        p key:
+          code= user.key
+        p
+          i.icon-envelope-alt
+          |  #{user.email}
+
+          a.btn(href="/users/"+user._id+"/edit") Edit

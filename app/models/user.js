@@ -17,6 +17,7 @@ var UserSchema = new Schema({
   username: { type: String, default: '' },
   hashed_password: { type: String, default: '' },
   salt: { type: String, default: '' },
+  key: { type: String, default: '' },
   authToken: { type: String, default: '' }
 })
 
@@ -25,6 +26,20 @@ var UserSchema = new Schema({
  */
 
 UserSchema.plugin(userPlugin, {})
+
+/**
+ * Pre-save hooks
+ */
+
+UserSchema.pre('save', function (next) {
+  var user = this
+
+  if (user.isNew) {
+    user.resetToken('key', function () {
+      user.resetToken('authToken', next)
+    })
+  }
+})
 
 /**
  * Validations

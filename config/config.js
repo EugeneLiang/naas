@@ -4,7 +4,7 @@ var root = path.resolve(__dirname + '../..')
 module.exports = {
   development: {
     root: root,
-    db: 'mongodb://localhost/NaasDev'
+    db: 'mongodb://localhost/nas_dev'
   },
   test: {
     root: root,

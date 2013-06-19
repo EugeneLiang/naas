@@ -75,6 +75,6 @@ table form {
   border: 0;
 }
 
-a.danger, a.danger:hover, .btn.danger, .btn.danger:hover {
+a.danger, a.danger:hover, .btn.danger, .btn.danger:hover, .error {
   color: red;
 }
