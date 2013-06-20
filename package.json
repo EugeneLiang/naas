@@ -23,7 +23,8 @@
     "passport": "latest",
     "passport-local": "latest",
     "mongoose-user": "latest",
-    "gravatar": "latest"
+    "gravatar": "latest",
+    "forever": "latest"
   },
   "devDependencies": {
     "nodemon": "latest",
