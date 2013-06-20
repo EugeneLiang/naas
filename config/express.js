@@ -11,6 +11,21 @@ var flash = require('connect-flash')
 var env = process.env.NODE_ENV || 'development'
 
 module.exports = function (app, config, passport) {
+
+  // Add basic auth for staging
+  if (env === 'staging') {
+    app.use(express.basicAuth(function(user, pass){
+      return 'nas' == user & 'changer' == pass
+    }))
+
+    app.use(function (req, res, next) {
+      if (req.remoteUser && req.user && !req.user._id) {
+        delete req.user
+      }
+      next()
+    })
+  }
+
   app.set('showStackError', true)
 
   // use express favicon
@@ -81,20 +96,5 @@ module.exports = function (app, config, passport) {
 
   app.configure('staging', function () {
     app.locals.pretty = true;
-
-    /**
-     * Add basic auth for staging
-     */
-
-    app.use(express.basicAuth(function(user, pass){
-      return 'nas' == user & 'changer' == pass
-    }))
-
-    app.use(function (req, res, next) {
-      if (req.remoteUser && req.user && !req.user._id) {
-        delete req.user
-      }
-      next()
-    })
   })
 }
