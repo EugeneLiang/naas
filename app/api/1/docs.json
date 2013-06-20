@@ -1,0 +1,172 @@
+[
+  {
+    "tags": [],
+    "description": {
+      "full": "<p>Module dependencies.</p>",
+      "summary": "<p>Module dependencies.</p>",
+      "body": ""
+    },
+    "ignore": true,
+    "code": "var mongoose = require('mongoose')\nvar User = mongoose.model('User')\nvar App = mongoose.model('App')",
+    "ctx": {
+      "type": "declaration",
+      "name": "mongoose",
+      "value": "require('mongoose')",
+      "string": "mongoose"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "method",
+        "string": "POST"
+      },
+      {
+        "type": "version",
+        "string": "1"
+      },
+      {
+        "type": "endpoint",
+        "string": "/auth"
+      }
+    ],
+    "description": {
+      "full": "<p>Authorization</p>\n\n<p>Authenticates the user</p>\n\n<h4>Example</h4>\n\n<p><em>Request</em></p>\n\n<p>request body:</p>\n\n<pre><code>{\n  \"email\": \"<a href='mailto:tom@example.com'>tom@example.com</a>\",\n  \"key\": \"YOUR_KEY\"\n}\n</code></pre>\n\n<p>If the request was successful, it should respond with 200 and token<br />If the auth failed, it responds with 401 and error message</p>\n\n<p><em>Response</em></p>\n\n<p>body:</p>\n\n<p>successful response:</p>\n\n<pre><code>{\n  \"token\": \"SECRET_TOKEN\"\n}\n</code></pre>\n\n<p>error responses:</p>\n\n<pre><code>{\n  \"message\": \"Invalid email or key\"\n}\n</code></pre>",
+      "summary": "<p>Authorization</p>",
+      "body": "<p>Authenticates the user</p>\n\n<h4>Example</h4>\n\n<p><em>Request</em></p>\n\n<p>request body:</p>\n\n<pre><code>{\n  \"email\": \"<a href='mailto:tom@example.com'>tom@example.com</a>\",\n  \"key\": \"YOUR_KEY\"\n}\n</code></pre>\n\n<p>If the request was successful, it should respond with 200 and token<br />If the auth failed, it responds with 401 and error message</p>\n\n<p><em>Response</em></p>\n\n<p>body:</p>\n\n<p>successful response:</p>\n\n<pre><code>{\n  \"token\": \"SECRET_TOKEN\"\n}\n</code></pre>\n\n<p>error responses:</p>\n\n<pre><code>{\n  \"message\": \"Invalid email or key\"\n}\n</code></pre>"
+    },
+    "isPrivate": false,
+    "ignore": false,
+    "code": "exports.auth = function (req, res) {\n  // if email or key is not present in the request body, its bad request\n  if (!req.body.email || !req.body.key) {\n    return res.json(400, { message: 'email or key is missing' })\n  }\n\n  var options = {\n    criteria: { email: req.body.email, key: req.body.key },\n    select: 'authToken'\n  }\n\n  User.load(options, function (err, user) {\n    if (err || !user) {\n      return res.json(401, { message: 'Invalid email or key' })\n    }\n    res.json({ token: user.authToken })\n  })\n}",
+    "ctx": {
+      "type": "method",
+      "receiver": "exports",
+      "name": "auth",
+      "string": "exports.auth()"
+    }
+  },
+  {
+    "tags": [],
+    "description": {
+      "full": "<p>API v1 documentation</p>\n\n<p>Reads json from the generated documentation, formats it and renders it</p>",
+      "summary": "<p>API v1 documentation</p>",
+      "body": "<p>Reads json from the generated documentation, formats it and renders it</p>"
+    },
+    "ignore": true,
+    "code": "exports.docs = function (req, res) {\n  var fs = require('fs')\n  var docs = __dirname + '/docs.json'\n  var json\n\n  // read from the generated docs file\n  fs.readFile(docs, function (err, data) {\n    json = JSON.parse(data)\n\n    // don't include the ignored\n    json = json.filter(function (obj) {\n      return !obj.ignore\n    })\n\n    res.render('docs/1', {\n      title: 'API version 1 documentation',\n      json: info(json)\n    })\n  })\n}",
+    "ctx": {
+      "type": "method",
+      "receiver": "exports",
+      "name": "docs",
+      "string": "exports.docs()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "param",
+        "types": [
+          "Array"
+        ],
+        "name": "json",
+        "description": ""
+      },
+      {
+        "type": "return",
+        "types": [
+          "Array"
+        ],
+        "description": ""
+      },
+      {
+        "type": "api",
+        "visibility": "private"
+      }
+    ],
+    "description": {
+      "full": "<p>Format the docs json</p>",
+      "summary": "<p>Format the docs json</p>",
+      "body": ""
+    },
+    "isPrivate": true,
+    "ignore": true,
+    "code": "function info (json) {\n  json = json.map(function (obj) {\n\n    obj.text = stripHtml(obj.description.summary)\n    obj.slug = makeSlug(obj.text)\n\n    // put all the request params in params array\n    obj.params = []\n\n    // Decorate obj with method, version, endpoint, auth and params\n    obj.tags = obj.tags.map(function (tag) {\n      switch (tag.type) {\n        case 'method':\n          obj.method = tag.string\n          break\n        case 'version':\n          obj.version = tag.string\n          break\n        case 'endpoint':\n          obj.endpoint = tag.string\n          break\n        case 'auth':\n          obj.auth = tag.string\n          break\n        case 'param':\n          tag.type = tag.types[0]\n          obj.params.push(tag)\n          break\n      }\n      return tag\n    })\n    return obj\n  })\n  return json\n}",
+    "ctx": {
+      "type": "function",
+      "name": "info",
+      "string": "info()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "param",
+        "types": [
+          "String"
+        ],
+        "name": "string",
+        "description": ""
+      },
+      {
+        "type": "return",
+        "types": [
+          "String"
+        ],
+        "description": ""
+      },
+      {
+        "type": "api",
+        "visibility": "private"
+      }
+    ],
+    "description": {
+      "full": "<p>Strip html</p>",
+      "summary": "<p>Strip html</p>",
+      "body": ""
+    },
+    "isPrivate": true,
+    "ignore": true,
+    "code": "function stripHtml (string) {\n  return string.replace(/(<([^>]+)>)/ig,\"\")\n}",
+    "ctx": {
+      "type": "function",
+      "name": "stripHtml",
+      "string": "stripHtml()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "param",
+        "types": [
+          "String"
+        ],
+        "name": "string",
+        "description": ""
+      },
+      {
+        "type": "return",
+        "types": [
+          "String"
+        ],
+        "description": ""
+      },
+      {
+        "type": "api",
+        "visibility": "private"
+      }
+    ],
+    "description": {
+      "full": "<p>Make slug</p>\n\n<p>Replace all spaces, characters with - and make the string lowercase</p>",
+      "summary": "<p>Make slug</p>",
+      "body": "<p>Replace all spaces, characters with - and make the string lowercase</p>"
+    },
+    "isPrivate": true,
+    "ignore": true,
+    "code": "function makeSlug (string) {\n  return stripHtml(string).replace(/\\ /g, '-').toLowerCase()\n}",
+    "ctx": {
+      "type": "function",
+      "name": "makeSlug",
+      "string": "makeSlug()"
+    }
+  }
+]
