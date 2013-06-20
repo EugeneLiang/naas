@@ -4,14 +4,28 @@ Notifications as service. Managing notifications has never been easier!
 
 ## Installation
 
-```sh
-$ npm install
-$ npm start
-```
+    $ npm install
+    $ npm start
 
-## Heroku usage
+## Todo
 
-https://devcenter.heroku.com/articles/scheduled-jobs-custom-clock-processes
+1. Research on [heroku schedulers](https://devcenter.heroku.com/articles/scheduled-jobs-custom-clock-processes)
+2. Write tests
+3. Add notification specific stuff to the app
+
+## Tests
+
+    $ npm test
+
+## Documentation
+
+API docs
+
+    $ make api-docs
+
+Test docs
+
+    $ make test-docs
 
 ## License
 MIT
