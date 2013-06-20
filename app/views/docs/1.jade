@@ -1,0 +1,60 @@
+extends ../layouts/default
+
+block main
+  h2= title
+
+block content
+  .row
+    .span8
+      - each obj in json
+
+        div(id="#{obj.slug}")
+
+        h3= obj.text
+
+        table.table.table-striped
+          tbody
+            tr
+              td: strong method
+              td= obj.method
+            tr
+              td: strong version
+              td= obj.version
+            tr
+              td: strong endpoint
+              td= obj.endpoint
+
+        pre
+          code=  obj.method + ' ' + '/api/' + obj.version + obj.endpoint
+
+        - if (obj.auth)
+          p
+            span.label.label-info Info
+            |  Needs user auth
+
+        - if (obj.params.length)
+          br
+          h4 Parameters
+
+          table.table.table-striped
+            tbody
+              - each param in obj.params
+                tr
+                  td= param.name
+                  td= param.type
+                  td= param.description
+        - else
+          br
+
+        != obj.description.body
+
+        hr
+
+    .span4
+      .sidebar(data-spy="affix", data-offset-top="200")
+        h3 API docs
+
+        ul.docs
+          - each obj in json
+            li
+              a.blue(href="#" + obj.slug)= obj.text
