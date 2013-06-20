@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/changer/naas.png)](https://travis-ci.org/changer/naas)
+
 ## NAAS
 
 Notifications as a service. Managing notifications has never been easier!
