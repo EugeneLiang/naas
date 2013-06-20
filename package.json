@@ -28,7 +28,8 @@
   "devDependencies": {
     "nodemon": "latest",
     "mocha": "latest",
-    "should": "latest"
+    "should": "latest",
+    "dox": "latest"
   },
   "keywords": [
     "nas",
