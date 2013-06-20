@@ -1,6 +1,6 @@
-## NAS
+## NAAS
 
-Notifications as service. Managing notifications has never been easier!
+Notifications as a service. Managing notifications has never been easier!
 
 ## Installation
 

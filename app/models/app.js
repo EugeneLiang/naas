@@ -31,7 +31,7 @@ AppSchema.pre('save', function (next) {
       self.key = buf.toString('hex')
       next()
     })
-  }
+  } else next()
 })
 
 /**
